@@ -9,6 +9,7 @@ namespace FedoraPhoto.Models
     [Table("Seances.Seance")]
     public partial class Seance
     {
+        
         public int SeanceID { get; set; }
 
         public int AgentID { get; set; }

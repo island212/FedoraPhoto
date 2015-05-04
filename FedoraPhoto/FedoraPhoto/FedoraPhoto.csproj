@@ -119,7 +119,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PhotographesController.cs" />
     <Compile Include="Controllers\SeancesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -129,6 +131,7 @@
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Photographe.cs" />
     <Compile Include="Models\Seance.cs" />
+    <Compile Include="Models\SeanceMetadata.cs" />
     <Compile Include="Models\Telephone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -173,6 +176,16 @@
     <Content Include="Views\Seances\Details.cshtml" />
     <Content Include="Views\Seances\Edit.cshtml" />
     <Content Include="Views\Seances\Index.cshtml" />
+    <Content Include="Views\Photographes\Create.cshtml" />
+    <Content Include="Views\Photographes\Delete.cshtml" />
+    <Content Include="Views\Photographes\Details.cshtml" />
+    <Content Include="Views\Photographes\Edit.cshtml" />
+    <Content Include="Views\Photographes\Index.cshtml" />
+    <Content Include="Views\Agents\Create.cshtml" />
+    <Content Include="Views\Agents\Delete.cshtml" />
+    <Content Include="Views\Agents\Details.cshtml" />
+    <Content Include="Views\Agents\Edit.cshtml" />
+    <Content Include="Views\Agents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

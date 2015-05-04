@@ -36,3 +36,41 @@ E:\Session Hiver 2015\Projet Session\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.W
 E:\Session Hiver 2015\Projet Session\FedoraPhoto\FedoraPhoto\obj\Debug\FedoraPhoto.csprojResolveAssemblyReference.cache
 E:\Session Hiver 2015\Projet Session\FedoraPhoto\FedoraPhoto\obj\Debug\FedoraPhoto.dll
 E:\Session Hiver 2015\Projet Session\FedoraPhoto\FedoraPhoto\obj\Debug\FedoraPhoto.pdb
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\obj\Debug\FedoraPhoto.csprojResolveAssemblyReference.cache
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\obj\Debug\FedoraPhoto.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\obj\Debug\FedoraPhoto.pdb
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\FedoraPhoto.dll.config
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\FedoraPhoto.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\FedoraPhoto.pdb
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\Antlr3.Runtime.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\EntityFramework.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\EntityFramework.SqlServer.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\Newtonsoft.Json.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Helpers.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Mvc.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Optimization.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Razor.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.WebPages.Deployment.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.WebPages.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.WebPages.Razor.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\WebGrease.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\EntityFramework.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\EntityFramework.SqlServer.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Helpers.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Mvc.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Optimization.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.Razor.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.WebPages.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.WebPages.Deployment.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\System.Web.WebPages.Razor.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\Antlr3.Runtime.pdb
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\Newtonsoft.Json.xml
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\EntityFramework.resources.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.Helpers.resources.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.Mvc.resources.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.Optimization.resources.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.Razor.resources.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.WebPages.resources.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.WebPages.Deployment.resources.dll
+C:\Users\1263287\Desktop\FedoraPhoto\FedoraPhoto\FedoraPhoto\bin\fr\System.Web.WebPages.Razor.resources.dll
