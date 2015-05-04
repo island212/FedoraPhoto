@@ -1,0 +1,82 @@
+﻿@model FedoraPhoto.Models.Seance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Seance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Agent.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agent.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Photo.Photo1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Photo.Photo1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Photographe.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Photographe.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateSeance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateSeance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone3)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SeanceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

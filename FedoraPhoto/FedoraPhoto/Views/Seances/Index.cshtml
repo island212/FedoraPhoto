@@ -1,0 +1,75 @@
+﻿@model IEnumerable<FedoraPhoto.Models.Seance>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Agent.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo.Photo1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photographe.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateSeance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone3)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Agent.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Photo.Photo1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Photographe.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateSeance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone3)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SeanceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SeanceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SeanceID })
+        </td>
+    </tr>
+}
+
+</table>
