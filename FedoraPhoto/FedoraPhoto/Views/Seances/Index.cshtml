@@ -38,8 +38,16 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+        @if (item.DateSeance != null)
+        {
+            <text>
+            <tr bgcolor="#95FF95">
+            </text>
+        }
+
         <td>
             @Html.DisplayFor(modelItem => item.Agent.Nom)
         </td>
@@ -65,11 +73,12 @@
             @Html.DisplayFor(modelItem => item.Telephone3)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SeanceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SeanceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SeanceID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.SeanceID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.SeanceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SeanceID }) |
+            @Html.ActionLink("Comfirmer", "Index", new { id = item.SeanceID })
         </td>
-    </tr>
-}
+        </tr>
+    }
 
 </table>

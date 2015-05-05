@@ -15,8 +15,16 @@ namespace FedoraPhoto.Controllers
         private Model1 db = new Model1();
 
         // GET: Seances
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+            if (id != null)
+            {
+                Seance seance = db.Seances.Find(id);
+                if (seance.DateSeance != null)
+                {
+
+                }
+            }
             var seances = db.Seances.Include(s => s.Agent).Include(s => s.Photo).Include(s => s.Photographe);
             return View(seances.ToList());
         }
@@ -50,7 +58,7 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3")] Seance seance)
+        public ActionResult Create([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3,Etat")] Seance seance)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +96,7 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3")] Seance seance)
+        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3,Etat")] Seance seance)
         {
             if (ModelState.IsValid)
             {

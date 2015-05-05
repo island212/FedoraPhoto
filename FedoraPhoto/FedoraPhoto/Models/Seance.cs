@@ -9,14 +9,11 @@ namespace FedoraPhoto.Models
     [Table("Seances.Seance")]
     public partial class Seance
     {
-        
         public int SeanceID { get; set; }
 
         public int AgentID { get; set; }
 
         public int PhotographeID { get; set; }
-
-        public DateTime DateSeance { get; set; }
 
         [StringLength(200)]
         public string Adresse { get; set; }
@@ -29,6 +26,8 @@ namespace FedoraPhoto.Models
 
         [StringLength(20)]
         public string Telephone3 { get; set; }
+
+        public DateTime? DateSeance { get; set; }
 
         public virtual Agent Agent { get; set; }
 

@@ -133,6 +133,7 @@
     <Compile Include="Models\Seance.cs" />
     <Compile Include="Models\SeanceMetadata.cs" />
     <Compile Include="Models\Telephone.cs" />
+    <Compile Include="Models\ValidateDateSeance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -171,11 +172,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Seances\Create.cshtml" />
-    <Content Include="Views\Seances\Delete.cshtml" />
-    <Content Include="Views\Seances\Details.cshtml" />
-    <Content Include="Views\Seances\Edit.cshtml" />
-    <Content Include="Views\Seances\Index.cshtml" />
     <Content Include="Views\Photographes\Create.cshtml" />
     <Content Include="Views\Photographes\Delete.cshtml" />
     <Content Include="Views\Photographes\Details.cshtml" />
@@ -186,6 +182,11 @@
     <Content Include="Views\Agents\Details.cshtml" />
     <Content Include="Views\Agents\Edit.cshtml" />
     <Content Include="Views\Agents\Index.cshtml" />
+    <Content Include="Views\Seances\Create.cshtml" />
+    <Content Include="Views\Seances\Delete.cshtml" />
+    <Content Include="Views\Seances\Details.cshtml" />
+    <Content Include="Views\Seances\Edit.cshtml" />
+    <Content Include="Views\Seances\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
