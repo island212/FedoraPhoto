@@ -123,6 +123,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotographesController.cs" />
     <Compile Include="Controllers\SeancesController.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\IGenericRepository.cs" />
+    <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
