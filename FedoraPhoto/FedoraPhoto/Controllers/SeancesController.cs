@@ -7,17 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FedoraPhoto.Models;
+using FedoraPhoto.DAL;
 
 namespace FedoraPhoto.Controllers
 {
     public class SeancesController : Controller
     {
         private Model1 db = new Model1();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Seances
         public ActionResult Index()
         {
-            var seances = db.Seances.Include(s => s.Agent).Include(s => s.Photo).Include(s => s.Photographe);
+            //var seances = db.Seances.Include(s => s.Agent).Include(s => s.Photo).Include(s => s.Photographe);
+            var seances = unitOfWork.SeanceRepository.Get();
             return View(seances.ToList());
         }
 
@@ -28,7 +31,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seance seance = db.Seances.Find(id);
+          //  Seance seance = db.Seances.Find(id);
+            Seance seance = unitOfWork.SeanceRepository.GetByID(id);
             if (seance == null)
             {
                 return HttpNotFound();
