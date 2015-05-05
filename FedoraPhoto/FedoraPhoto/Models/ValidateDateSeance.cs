@@ -26,10 +26,19 @@ namespace FedoraPhoto.Models
                     return new ValidationResult("La date doit être au maximum 15 jours après la demande.");
 
                 UnitOfWork uow = new UnitOfWork();
-                int photographeId = ((Seance)validationContext.ObjectInstance).PhotographeID;
-                foreach (var item in uow.SeanceRepository.ObtenirSeancesByPhotographeId(photographeId))
-                    if (item.DateSeance.Value != null && item.DateSeance.Value.AddHours(4) > date && item.DateSeance.Value.AddHours(-4) < date)
+                Seance seance = (Seance)validationContext.ObjectInstance;
+
+                int heureSeance = (int)seance.HeureRDV * 60 + (int)seance.MinuteRDV;
+                foreach (var item in uow.SeanceRepository.ObtenirSeancesByPhotographeId(seance.PhotographeID))
+                {
+                    int tempHeureSeance = (int)item.HeureRDV * 60 + (int)item.MinuteRDV;
+
+                    int debutHeure = tempHeureSeance - (60 * 4);
+                    int finHeure = tempHeureSeance + (60 * 4);
+
+                    if (item.DateSeance.Value != null && debutHeure <= heureSeance && finHeure >= heureSeance)
                         return new ValidationResult("Le photographe a déja un rendez à ce moment de la journée.");
+                }
             }
 
             return ValidationResult.Success;
