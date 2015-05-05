@@ -15,6 +15,11 @@ namespace FedoraPhoto.DAL
             return Get();
         }
 
+        public IEnumerable<Seance> ObtenirSeancesByPhotographeId(int id)
+        {
+            return Get().Where(x => x.PhotographeID == id);
+        }
+
         public IEnumerable<Seance> ObtenirSeancesTries()
         {
             return Get(orderBy: a => a.OrderByDescending(al => al.DateSeance));

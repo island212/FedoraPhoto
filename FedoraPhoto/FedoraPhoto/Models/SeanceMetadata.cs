@@ -22,7 +22,7 @@ namespace FedoraPhoto.Models
             public int PhotographeID { get; set; }
 
             [ValidateDateSeance]
-            [DataType(DataType.Date)]
+            [DataType(DataType.DateTime)]
             public DateTime DateSeance { get; set; }
 
             [StringLength(200)]
