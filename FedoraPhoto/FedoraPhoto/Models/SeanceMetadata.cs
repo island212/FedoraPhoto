@@ -21,6 +21,7 @@ namespace FedoraPhoto.Models
             [Required]
             public int PhotographeID { get; set; }
 
+            [ValidateDateSeance]
             [DataType(DataType.Date)]
             public DateTime DateSeance { get; set; }
 
