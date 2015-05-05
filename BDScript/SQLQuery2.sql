@@ -24,3 +24,9 @@ ALTER TABLE Seances.Seance
 ADD Telephone1 varchar(20) NULL,
 	Telephone2 varchar(20) NULL,
 	Telephone3 varchar(20) NULL;
+
+USE [H15_PROJET_E07]
+GO
+ALTER TABLE Seances.Seance
+	ADD HeureRDV int NULL,
+	MinuteRDV int NULL;
