@@ -29,6 +29,10 @@ namespace FedoraPhoto.Models
 
         public DateTime? DateSeance { get; set; }
 
+        public int? HeureRDV { get; set; }
+
+        public int? MinuteRDV { get; set; }
+
         public virtual Agent Agent { get; set; }
 
         public virtual Photographe Photographe { get; set; }

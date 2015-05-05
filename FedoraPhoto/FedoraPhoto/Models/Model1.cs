@@ -8,7 +8,7 @@ namespace FedoraPhoto.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model15")
+            : base("name=Model16")
         {
         }
 
