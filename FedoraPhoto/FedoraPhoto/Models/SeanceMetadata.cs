@@ -12,15 +12,19 @@ namespace FedoraPhoto.Models
     {
         internal sealed class SeanceMetaData
         {
+            [Display(Name="Séance")]
             [Required]
             public int SeanceID { get; set; }
 
+            [Display(Name = "Agent")]
             [Required]
             public int AgentID { get; set; }
 
+            [Display(Name = "Photographe")]
             [Required]
             public int PhotographeID { get; set; }
 
+            [Display(Name = "Date de la seance")]
             [ValidateDateSeance]
             [DataType(DataType.Date)]
             public DateTime DateSeance { get; set; }
@@ -28,16 +32,19 @@ namespace FedoraPhoto.Models
             [StringLength(200)]
             public string Adresse { get; set; }
 
-            [Phone]
+            [Display(Name = "Téléphone 1")]
+            [RegularExpression("^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage="Le numéro de téléphone doit être valide")]
             [DataType(DataType.PhoneNumber)]
             [StringLength(20)]
             public string Telephone1 { get; set; }
 
-            [Phone]
+            [Display(Name = "Téléphone 2")]
+            [RegularExpression("^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage= "Le numéro de téléphone doit être valide")]
             [StringLength(20)]
             public string Telephone2 { get; set; }
 
-            [Phone]
+            [Display(Name = "Téléphone 3")]
+            [RegularExpression("^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage= "Le numéro de téléphone doit être valide")]
             [StringLength(20)]
             public string Telephone3 { get; set; }
         }
