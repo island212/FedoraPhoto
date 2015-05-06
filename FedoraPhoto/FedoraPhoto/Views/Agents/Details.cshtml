@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Details";
 }
+@using FedoraPhoto.Models
 
 <h2>Details</h2>
 
@@ -41,8 +42,40 @@
         <dd>
             @Html.DisplayFor(model => model.Courriel)
         </dd>
-
     </dl>
+
+    <h4>
+        @Html.DisplayName("Seances")
+    </h4>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Addresse")
+            </th>
+            <th>
+                @Html.DisplayName("Date Seance")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var seance in Model.Seances)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => seance.Adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => seance.DateSeance)
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+
+    
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.AgentID }) |
