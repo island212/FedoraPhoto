@@ -13,12 +13,16 @@ namespace FedoraPhoto.Models
 
         public int SeanceID { get; set; }
 
-        [Column("Photo")]
-        [StringLength(200)]
-        public string Photo1 { get; set; }
-
         [StringLength(50)]
         public string PhotoName { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string PhotoPath { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string PhotoType { get; set; }
 
         public virtual Seance Seance { get; set; }
     }

@@ -39,9 +39,21 @@ namespace FedoraPhoto.Models
         [StringLength(50)]
         public string Prenom { get; set; }
 
+        public int? ForfaitID { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Statut { get; set; }
+
+        public DateTime? DateDispo { get; set; }
+
+        public DateTime? DateFacture { get; set; }
+
         public virtual Agent Agent { get; set; }
 
         public virtual Photographe Photographe { get; set; }
+
+        public virtual Forfait Forfait { get; set; }
 
         public virtual Photo Photo { get; set; }
     }

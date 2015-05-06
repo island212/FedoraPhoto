@@ -7,21 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FedoraPhoto.Models;
-using FedoraPhoto.DAL;
-using System.Data.Entity.Validation;
 
 namespace FedoraPhoto.Controllers
 {
     public class SeancesController : Controller
     {
         private Model1 db = new Model1();
-        private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Seances
         public ActionResult Index()
         {
-            //var seances = db.Seances.Include(s => s.Agent).Include(s => s.Photo).Include(s => s.Photographe);
-            var seances = unitOfWork.SeanceRepository.Get();
+            var seances = db.Seances.Include(s => s.Agent).Include(s => s.Forfait).Include(s => s.Photo).Include(s => s.Photographe);
             return View(seances.ToList());
         }
 
@@ -32,8 +28,7 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-          //  Seance seance = db.Seances.Find(id);
-            Seance seance = unitOfWork.SeanceRepository.GetByID(id);
+            Seance seance = db.Seances.Find(id);
             if (seance == null)
             {
                 return HttpNotFound();
@@ -45,7 +40,8 @@ namespace FedoraPhoto.Controllers
         public ActionResult Create()
         {
             ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom");
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "Photo1");
+            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait");
+            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName");
             ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom");
             return View();
         }
@@ -55,7 +51,7 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3,Nom,Prenom")] Seance seance)
+        public ActionResult Create([Bind(Include = "SeanceID,AgentID,PhotographeID,Adresse,Telephone1,Telephone2,Telephone3,DateSeance,HeureRDV,MinuteRDV,Nom,Prenom,ForfaitID,Statut,DateDispo,DateFacture")] Seance seance)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +61,8 @@ namespace FedoraPhoto.Controllers
             }
 
             ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "Photo1", seance.SeanceID);
+            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
+            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
             ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
             return View(seance);
         }
@@ -83,7 +80,8 @@ namespace FedoraPhoto.Controllers
                 return HttpNotFound();
             }
             ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "Photo1", seance.SeanceID);
+            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
+            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
             ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
             return View(seance);
         }
@@ -93,29 +91,17 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,HeureRDV,MinuteRDV,Adresse,Telephone1,Telephone2,Telephone3,Nom,Prenom")] Seance seance)
+        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,Adresse,Telephone1,Telephone2,Telephone3,DateSeance,HeureRDV,MinuteRDV,Nom,Prenom,ForfaitID,Statut,DateDispo,DateFacture")] Seance seance)
         {
-            //try
-            //{
-                if (ModelState.IsValid)
-                {
-                    db.Entry(seance).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            //}
-            //catch (DbEntityValidationException ex)
-            //{
-            //    foreach (var erreur in ex.EntityValidationErrors)
-            //    {
-            //        foreach (var validationErreur in erreur.ValidationErrors)
-            //        {
-            //            ModelState.AddModelError("", validationErreur.ErrorMessage);
-            //        }
-            //    }
-            //}
+            if (ModelState.IsValid)
+            {
+                db.Entry(seance).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "Photo1", seance.SeanceID);
+            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
+            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
             ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
             return View(seance);
         }
