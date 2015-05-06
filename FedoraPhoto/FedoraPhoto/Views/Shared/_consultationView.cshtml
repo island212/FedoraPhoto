@@ -1,0 +1,32 @@
+﻿
+@model FedoraPhoto.Models.Agent
+
+@{
+   
+}
+
+<h4>@Html.DisplayName("Seances")</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Date Seance")
+        </th>
+        <th>
+            @Html.DisplayName("Adresse")
+        </th>
+    </tr>
+
+    @foreach (var seance in Model.Seances)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => seance.DateSeance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => seance.Adresse)
+            </td>
+        </tr>
+    }
+
+</table>

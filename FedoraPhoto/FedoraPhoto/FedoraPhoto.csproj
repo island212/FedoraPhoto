@@ -194,6 +194,7 @@
     <Content Include="Views\Seances\Details.cshtml" />
     <Content Include="Views\Seances\Edit.cshtml" />
     <Content Include="Views\Seances\Index.cshtml" />
+    <Content Include="Views\Shared\_consultationView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
