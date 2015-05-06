@@ -23,31 +23,27 @@ namespace FedoraPhoto.Models
 
                 if (seance.MinuteRDV != null && seance.HeureRDV != null)
                 {
+                    date = date.AddHours(seance.HeureRDV.Value).AddMinutes(seance.MinuteRDV.Value);
+
                     DateTime dateDebut = DateTime.Now.AddDays(1);
-                    dateDebut.AddHours(seance.HeureRDV.Value);
-                    dateDebut.AddMinutes(seance.MinuteRDV.Value);
                     if (date < dateDebut)
                         return new ValidationResult("La date doit être au minimum 1 jours après la demande");
 
                     DateTime dateFin = DateTime.Now.AddDays(15);
-                    dateFin.AddHours(seance.HeureRDV.Value);
-                    dateFin.AddMinutes(seance.MinuteRDV.Value);
                     if (date > dateFin)
                         return new ValidationResult("La date doit être au maximum 15 jours après la demande.");
 
 
-                    int heureSeance = seance.HeureRDV.Value * 60 + seance.MinuteRDV.Value;
+                    DateTime dateDebutRDV = date.AddHours(-4);
+                    DateTime dateFinRDV = date.AddHours(4);
                     foreach (var item in uow.SeanceRepository.ObtenirSeancesByPhotographeId(seance.PhotographeID))
                     {
-                        if (item.HeureRDV != null && item.MinuteRDV != null)
+                        if (item.HeureRDV != null && item.MinuteRDV != null && item.DateSeance != null)
                         {
-                            int tempHeureSeance = item.HeureRDV.Value * 60 + item.MinuteRDV.Value;
-
-                            int debutHeure = tempHeureSeance - (60 * 4);
-                            int finHeure = tempHeureSeance + (60 * 4);
-
-                            if (item.DateSeance.Value != null && date == item.DateSeance && debutHeure <= heureSeance && finHeure >= heureSeance)
-                                return new ValidationResult("Le photographe a déja un rendez à ce moment de la journée.");
+                            DateTime datePhotographe = item.DateSeance.Value.AddHours(item.HeureRDV.Value).AddMinutes(item.MinuteRDV.Value);
+                            if (seance.SeanceID != item.SeanceID && datePhotographe.Year == date.Year && date.Month == datePhotographe.Month &&
+                                date.Day == datePhotographe.Day && dateDebutRDV <= datePhotographe && datePhotographe <= dateFinRDV)
+                            return new ValidationResult("Le photographe a déja un rendez à ce moment de la journée.");
                         }
                     }
                 }
