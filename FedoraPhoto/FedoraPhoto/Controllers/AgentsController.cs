@@ -28,7 +28,7 @@ namespace FedoraPhoto.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Agent agent = db.Agents.Find(id);
-            agent.Seances = agent.Seances.OrderBy(sl => sl.DateSeance).ToList();
+            agent.Seances = agent.Seances.Where(s => s.DateSeance.Value.Year == DateTime.Now.Year).OrderBy(sl => sl.DateSeance).ToList();
             if (agent == null)
             {
                 return HttpNotFound();

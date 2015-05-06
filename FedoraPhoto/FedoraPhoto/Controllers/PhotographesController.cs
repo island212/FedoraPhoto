@@ -14,7 +14,6 @@ namespace FedoraPhoto.Controllers
     public class PhotographesController : Controller
     {
         private Model1 db = new Model1();
-        UnitOfWork uow = new UnitOfWork();
 
         // GET: Photographes
         public ActionResult Index()
