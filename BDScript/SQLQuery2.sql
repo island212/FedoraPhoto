@@ -30,3 +30,10 @@ GO
 ALTER TABLE Seances.Seance
 	ADD HeureRDV int NULL,
 	MinuteRDV int NULL;
+
+
+
+GO
+ALTER TABLE Seances.Seance
+	ADD Nom varchar(50) NULL,
+	Prenom varchar(50) NULL;

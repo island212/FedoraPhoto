@@ -33,6 +33,12 @@ namespace FedoraPhoto.Models
 
         public int? MinuteRDV { get; set; }
 
+        [StringLength(50)]
+        public string Nom { get; set; }
+
+        [StringLength(50)]
+        public string Prenom { get; set; }
+
         public virtual Agent Agent { get; set; }
 
         public virtual Photographe Photographe { get; set; }

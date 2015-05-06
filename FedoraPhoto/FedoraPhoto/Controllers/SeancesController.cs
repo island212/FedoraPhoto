@@ -55,7 +55,7 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3")] Seance seance)
+        public ActionResult Create([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3,Nom,Prenom")] Seance seance)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,HeureRDV,MinuteRDV,Adresse,Telephone1,Telephone2,Telephone3")] Seance seance)
+        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,HeureRDV,MinuteRDV,Adresse,Telephone1,Telephone2,Telephone3,Nom,Prenom")] Seance seance)
         {
             //try
             //{

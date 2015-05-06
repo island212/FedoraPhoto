@@ -8,7 +8,7 @@ namespace FedoraPhoto.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model16")
+            : base("name=Model17")
         {
         }
 
@@ -75,6 +75,14 @@ namespace FedoraPhoto.Models
 
             modelBuilder.Entity<Seance>()
                 .Property(e => e.Telephone3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seance>()
+                .Property(e => e.Nom)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seance>()
+                .Property(e => e.Prenom)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Seance>()

@@ -47,6 +47,16 @@ namespace FedoraPhoto.Models
             [RegularExpression("^\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage= "Le numéro de téléphone doit être valide")]
             [StringLength(20)]
             public string Telephone3 { get; set; }
+
+            [Display(Name = "Nom du propriétaire")]
+            [StringLength(50)]
+            [Required]
+            public string Nom { get; set; }
+
+            [Display(Name = "Prénom du propriétaire")]
+            [StringLength(50)]
+            [Required]
+            public string Prenom { get; set; }
         }
     }
 }
