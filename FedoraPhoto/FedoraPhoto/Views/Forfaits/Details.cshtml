@@ -1,0 +1,58 @@
+﻿@model FedoraPhoto.Models.Forfait
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Forfait</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomForfait)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomForfait)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescriptionForfait)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionForfait)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrixForfait)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrixForfait)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NbPhotos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NbPhotos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Temps)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Temps)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ForfaitID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

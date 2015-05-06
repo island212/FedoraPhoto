@@ -13,7 +13,6 @@ namespace FedoraPhoto.Models
         {
             Seances = new HashSet<Seance>();
         }
-
         public int ForfaitID { get; set; }
 
         [Required]

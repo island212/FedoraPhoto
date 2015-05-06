@@ -120,6 +120,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
+    <Compile Include="Controllers\ForfaitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotographesController.cs" />
     <Compile Include="Controllers\SeancesController.cs" />
@@ -198,6 +199,11 @@
     <Content Include="Views\Seances\Edit.cshtml" />
     <Content Include="Views\Seances\Index.cshtml" />
     <Content Include="Views\Shared\_consultationView.cshtml" />
+    <Content Include="Views\Forfaits\Create.cshtml" />
+    <Content Include="Views\Forfaits\Delete.cshtml" />
+    <Content Include="Views\Forfaits\Details.cshtml" />
+    <Content Include="Views\Forfaits\Edit.cshtml" />
+    <Content Include="Views\Forfaits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
