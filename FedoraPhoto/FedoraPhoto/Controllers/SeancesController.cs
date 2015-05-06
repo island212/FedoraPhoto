@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FedoraPhoto.Models;
 using FedoraPhoto.DAL;
+using System.Data.Entity.Validation;
 
 namespace FedoraPhoto.Controllers
 {
@@ -92,14 +93,27 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,Adresse,Telephone1,Telephone2,Telephone3")] Seance seance)
+        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,DateSeance,HeureRDV,MinuteRDV,Adresse,Telephone1,Telephone2,Telephone3")] Seance seance)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(seance).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            //try
+            //{
+                if (ModelState.IsValid)
+                {
+                    db.Entry(seance).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            //}
+            //catch (DbEntityValidationException ex)
+            //{
+            //    foreach (var erreur in ex.EntityValidationErrors)
+            //    {
+            //        foreach (var validationErreur in erreur.ValidationErrors)
+            //        {
+            //            ModelState.AddModelError("", validationErreur.ErrorMessage);
+            //        }
+            //    }
+            //}
             ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
             ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "Photo1", seance.SeanceID);
             ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);

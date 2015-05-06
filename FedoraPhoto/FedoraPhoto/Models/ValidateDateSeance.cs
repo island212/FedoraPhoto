@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -17,27 +18,38 @@ namespace FedoraPhoto.Models
             DateTime date;
             if (DateTime.TryParse(value.ToString(), out date))
             {
-                DateTime dateDebut = DateTime.Now.AddDays(1);
-                if (date < dateDebut)
-                    return new ValidationResult("La date doit être au minimum 1 jours après la demande");
-
-                DateTime dateFin = DateTime.Now.AddDays(15);
-                if (date > dateFin)
-                    return new ValidationResult("La date doit être au maximum 15 jours après la demande.");
-
                 UnitOfWork uow = new UnitOfWork();
                 Seance seance = (Seance)validationContext.ObjectInstance;
 
-                int heureSeance = (int)seance.HeureRDV * 60 + (int)seance.MinuteRDV;
-                foreach (var item in uow.SeanceRepository.ObtenirSeancesByPhotographeId(seance.PhotographeID))
+                if (seance.MinuteRDV != null && seance.HeureRDV != null)
                 {
-                    int tempHeureSeance = (int)item.HeureRDV * 60 + (int)item.MinuteRDV;
+                    DateTime dateDebut = DateTime.Now.AddDays(1);
+                    dateDebut.AddHours(seance.HeureRDV.Value);
+                    dateDebut.AddMinutes(seance.MinuteRDV.Value);
+                    if (date < dateDebut)
+                        return new ValidationResult("La date doit être au minimum 1 jours après la demande");
 
-                    int debutHeure = tempHeureSeance - (60 * 4);
-                    int finHeure = tempHeureSeance + (60 * 4);
+                    DateTime dateFin = DateTime.Now.AddDays(15);
+                    dateFin.AddHours(seance.HeureRDV.Value);
+                    dateFin.AddMinutes(seance.MinuteRDV.Value);
+                    if (date > dateFin)
+                        return new ValidationResult("La date doit être au maximum 15 jours après la demande.");
 
-                    if (item.DateSeance.Value != null && debutHeure <= heureSeance && finHeure >= heureSeance)
-                        return new ValidationResult("Le photographe a déja un rendez à ce moment de la journée.");
+
+                    int heureSeance = seance.HeureRDV.Value * 60 + seance.MinuteRDV.Value;
+                    foreach (var item in uow.SeanceRepository.ObtenirSeancesByPhotographeId(seance.PhotographeID))
+                    {
+                        if (item.HeureRDV != null && item.MinuteRDV != null)
+                        {
+                            int tempHeureSeance = item.HeureRDV.Value * 60 + item.MinuteRDV.Value;
+
+                            int debutHeure = tempHeureSeance - (60 * 4);
+                            int finHeure = tempHeureSeance + (60 * 4);
+
+                            if (item.DateSeance.Value != null && date == item.DateSeance && debutHeure <= heureSeance && finHeure >= heureSeance)
+                                return new ValidationResult("Le photographe a déja un rendez à ce moment de la journée.");
+                        }
+                    }
                 }
             }
 
