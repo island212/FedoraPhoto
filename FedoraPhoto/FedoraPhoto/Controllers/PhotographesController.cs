@@ -7,12 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FedoraPhoto.Models;
+using FedoraPhoto.DAL;
 
 namespace FedoraPhoto.Controllers
 {
     public class PhotographesController : Controller
     {
         private Model1 db = new Model1();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: Photographes
         public ActionResult Index()
@@ -28,6 +30,7 @@ namespace FedoraPhoto.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Photographe photographe = db.Photographes.Find(id);
+            photographe.Seances = uow.SeanceRepository.ObtenirSeancesTries().ToList();
             if (photographe == null)
             {
                 return HttpNotFound();

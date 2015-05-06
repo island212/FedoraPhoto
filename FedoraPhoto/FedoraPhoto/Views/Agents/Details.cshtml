@@ -51,22 +51,22 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayName("Addresse")
-            </th>
-            <th>
                 @Html.DisplayName("Date Seance")
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayName("Addresse")
+            </th>
+            
         </tr>
 
         @foreach (var seance in Model.Seances)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => seance.Adresse)
+                    @Html.DisplayFor(modelItem => seance.DateSeance)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => seance.DateSeance)
+                    @Html.DisplayFor(modelItem => seance.Adresse)
                 </td>
             </tr>
 
