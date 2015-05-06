@@ -92,7 +92,7 @@ ALTER TABLE Seances.Seance
 
 ALTER TABLE Seances.Photo
 	ADD CONSTRAINT FK_Photo_Seance_SeanceID
-	FOREIGN KEY (PhotoID)
+	FOREIGN KEY (SeanceID)
 	REFERENCES Seances.Seance(SeanceID);
 
 ALTER TABLE Seances.Telephone
