@@ -30,7 +30,6 @@ namespace FedoraPhoto.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Photographe photographe = db.Photographes.Find(id);
-            photographe.Seances = uow.SeanceRepository.ObtenirSeancesTries().ToList();
             if (photographe == null)
             {
                 return HttpNotFound();
