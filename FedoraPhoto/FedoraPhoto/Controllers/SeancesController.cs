@@ -17,7 +17,7 @@ namespace FedoraPhoto.Controllers
         // GET: Seances
         public ActionResult Index()
         {
-            var seances = db.Seances.Include(s => s.Agent).Include(s => s.Forfait).Include(s => s.Photo).Include(s => s.Photographe);
+            var seances = db.Seances.Include(s => s.Agent).Include(s => s.Forfait).Include(s => s.Photos).Include(s => s.Photographe);
             return View(seances.ToList());
         }
 

@@ -9,6 +9,11 @@ namespace FedoraPhoto.Models
     [Table("Seances.Seance")]
     public partial class Seance
     {
+        public Seance()
+        {
+            Photos = new HashSet<Photo>();
+        }
+
         public int SeanceID { get; set; }
 
         public int AgentID { get; set; }
@@ -55,6 +60,6 @@ namespace FedoraPhoto.Models
 
         public virtual Forfait Forfait { get; set; }
 
-        public virtual Photo Photo { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }
