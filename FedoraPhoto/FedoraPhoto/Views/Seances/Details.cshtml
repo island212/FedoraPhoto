@@ -32,13 +32,6 @@
             @Html.DisplayFor(model => model.Agent.Nom)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Photos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photos)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Photographe.Nom)
@@ -100,16 +93,10 @@
         <tr>
             @for (int column = 0; column < 3 && row * 3 + column < photos.Count; column++)
 			{
-                <td><img src=@photos[row * 3 + column].PhotoPath alt="@photos[row * 3 + column].PhotoName" /></td>
+                <td><img src=@("..\\..\\" + photos[row * 3 + column].PhotoPath) alt="@photos[row * 3 + column].PhotoName" /></td>
 			}
         </tr>
     }
-    
-    <tr>
-        <td><img src="~/Images/Fedora.jpg"/></td>
-        <td><img src="~/Images/Fedora.jpg" /></td>
-        <td><img src="~/Images/Fedora.jpg" /></td>
-    </tr>
 </table>
 
 <p>
