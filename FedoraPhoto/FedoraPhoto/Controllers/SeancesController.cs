@@ -55,6 +55,7 @@ namespace FedoraPhoto.Controllers
         {
             if (ModelState.IsValid)
             {
+                seance.Statut = "demandée";
                 db.Seances.Add(seance);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,6 +96,7 @@ namespace FedoraPhoto.Controllers
         {
             if (ModelState.IsValid)
             {
+                seance.Statut = "demandée";
                 db.Entry(seance).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

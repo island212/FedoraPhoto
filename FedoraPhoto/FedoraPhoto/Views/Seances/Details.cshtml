@@ -2,7 +2,21 @@
 
 @{
     ViewBag.Title = "Details";
+    var photos = new List<FedoraPhoto.Models.Photo>(Model.Photos);
 }
+
+<style>
+    img {
+       height:auto;
+       max-width:100%;
+       width:auto;
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+</style>
 
 <h2>Details</h2>
 
@@ -19,11 +33,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Photo.Photo1)
+            @Html.DisplayNameFor(model => model.Photos)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Photo.Photo1)
+            @Html.DisplayFor(model => model.Photos)
         </dd>
 
         <dt>
@@ -76,7 +90,31 @@
 
     </dl>
 </div>
+
+<table class="table" width="100%">
+    <tr>
+        <th colspan="3">Photos</th>
+    </tr>
+    @for (int row = 0; row <= photos.Count / 3; row++)
+    {
+        <tr>
+            @for (int column = 0; column < 3 && row * 3 + column < photos.Count; column++)
+			{
+                <td><img src=@photos[row * 3 + column].PhotoPath alt="@photos[row * 3 + column].PhotoName" /></td>
+			}
+        </tr>
+    }
+    
+    <tr>
+        <td><img src="~/Images/Fedora.jpg"/></td>
+        <td><img src="~/Images/Fedora.jpg" /></td>
+        <td><img src="~/Images/Fedora.jpg" /></td>
+    </tr>
+</table>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.SeanceID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+

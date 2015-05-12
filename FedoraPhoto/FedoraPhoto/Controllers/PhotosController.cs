@@ -100,6 +100,7 @@ namespace FedoraPhoto.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.SeanceID = new SelectList(db.Seances, "SeanceID", "Adresse", photo.SeanceID);
             return View(photo);
         }

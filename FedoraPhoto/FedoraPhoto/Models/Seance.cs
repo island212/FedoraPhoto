@@ -20,16 +20,12 @@ namespace FedoraPhoto.Models
 
         public int PhotographeID { get; set; }
 
-        [StringLength(200)]
         public string Adresse { get; set; }
 
-        [StringLength(20)]
         public string Telephone1 { get; set; }
 
-        [StringLength(20)]
         public string Telephone2 { get; set; }
 
-        [StringLength(20)]
         public string Telephone3 { get; set; }
 
         public DateTime? DateSeance { get; set; }
@@ -38,16 +34,12 @@ namespace FedoraPhoto.Models
 
         public int? MinuteRDV { get; set; }
 
-        [StringLength(50)]
         public string Nom { get; set; }
 
-        [StringLength(50)]
         public string Prenom { get; set; }
 
         public int? ForfaitID { get; set; }
 
-        [Required]
-        [StringLength(50)]
         public string Statut { get; set; }
 
         public DateTime? DateDispo { get; set; }
