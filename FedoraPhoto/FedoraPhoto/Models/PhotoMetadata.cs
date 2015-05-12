@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FedoraPhoto.Models
 {
@@ -18,16 +19,16 @@ namespace FedoraPhoto.Models
             [Required]
             public int SeanceID { get; set; }
 
-            [StringLength(50)]
-            public string PhotoName { get; set; }
+            //[StringLength(50)]
+            //public string PhotoName { get; set; }
 
-            [Required]
-            [StringLength(200)]
-            public string PhotoPath { get; set; }
+            //[Required]
+            //[StringLength(200)]
+            //public string PhotoPath { get; set; }
 
-            [Required]
-            [StringLength(20)]
-            public string PhotoType { get; set; }
+            //[Required]
+            //[StringLength(20)]
+            //public string PhotoType { get; set; }
         }
     }
 }

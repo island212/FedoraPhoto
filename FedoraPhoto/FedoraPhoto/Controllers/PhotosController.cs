@@ -10,6 +10,7 @@ using FedoraPhoto.Models;
 using System.IO;
 using System.Security.AccessControl;
 using System.Configuration;
+using System.Security.Principal;
 
 namespace FedoraPhoto.Controllers
 {
@@ -55,7 +56,7 @@ namespace FedoraPhoto.Controllers
         {
             string pathDirectory = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + photo.SeanceID + "\\";
             string pathFile = pathDirectory + imageFile.FileName;
-            photo.PhotoPath = pathFile;
+            photo.PhotoPath = "Images\\" + photo.SeanceID + "\\" + imageFile.FileName;
             photo.PhotoType = imageFile.ContentType;
             photo.PhotoName = imageFile.FileName;
 
@@ -64,7 +65,8 @@ namespace FedoraPhoto.Controllers
                 if (!Directory.Exists(pathDirectory))
                 {
                     DirectorySecurity securityRules = new DirectorySecurity();
-                    securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["monUserName"], FileSystemRights.FullControl, AccessControlType.Allow));
+                    SecurityIdentifier everyone = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+                    securityRules.AddAccessRule(new FileSystemAccessRule(everyone, FileSystemRights.FullControl, AccessControlType.Allow));
                     var repertoire = Directory.CreateDirectory(pathDirectory, securityRules);
                 }
                 imageFile.SaveAs(pathFile);
