@@ -52,16 +52,11 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PhotoID,SeanceID")] Photo photo, HttpPostedFileBase imageFile)
+        public ActionResult Create([Bind(Include = "PhotoID,SeanceID")] Photo photo, IEnumerable<HttpPostedFileBase> imageFiles)
         {
-            string pathDirectory = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + photo.SeanceID + "\\";
-            string pathFile = pathDirectory + imageFile.FileName;
-            photo.PhotoPath = "Images\\" + photo.SeanceID + "\\" + imageFile.FileName;
-            photo.PhotoType = imageFile.ContentType;
-            photo.PhotoName = imageFile.FileName;
-
             if (ModelState.IsValid)
             {
+                string pathDirectory = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + photo.SeanceID + "\\";
                 if (!Directory.Exists(pathDirectory))
                 {
                     DirectorySecurity securityRules = new DirectorySecurity();
@@ -69,9 +64,22 @@ namespace FedoraPhoto.Controllers
                     securityRules.AddAccessRule(new FileSystemAccessRule(everyone, FileSystemRights.FullControl, AccessControlType.Allow));
                     var repertoire = Directory.CreateDirectory(pathDirectory, securityRules);
                 }
-                imageFile.SaveAs(pathFile);
 
-                db.Photos.Add(photo);
+                foreach (var imageFile in imageFiles)
+                {
+                    Photo imagePhoto = new Photo();
+                    imagePhoto.SeanceID = photo.SeanceID;
+                    imagePhoto.Seance = photo.Seance;
+
+                    string pathFile = pathDirectory + imageFile.FileName;
+                    imagePhoto.PhotoPath = "Images\\" + photo.SeanceID + "\\" + imageFile.FileName;
+                    imagePhoto.PhotoType = imageFile.ContentType;
+                    imagePhoto.PhotoName = imageFile.FileName;
+                    imageFile.SaveAs(pathFile);
+
+                    db.Photos.Add(imagePhoto);
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
