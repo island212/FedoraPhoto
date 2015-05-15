@@ -1,7 +1,7 @@
 ﻿@model FedoraPhoto.Models.Seance
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Modifier";
     List<int> heureValue = new List<int>();
     for (int i = 8; i <= 18; i++)
     {
@@ -14,7 +14,7 @@
     }
 }
 
-<h2>Edit</h2>
+<h2>Modifier</h2>
 
 
 @using (Html.BeginForm())
@@ -117,14 +117,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Sauvegarder" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Retour à la Liste", "Index")
 </div>
 
 @section Scripts {

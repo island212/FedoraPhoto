@@ -1,10 +1,10 @@
 ﻿@model FedoraPhoto.Models.Photo
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Modifier";
 }
 
-<h2>Details</h2>
+<h2>Modifier</h2>
 
 <div>
     <h4>Photo</h4>
@@ -45,6 +45,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.PhotoID }) |
+    @Html.ActionLink("Retour à la Liste", "Index")
 </p>
