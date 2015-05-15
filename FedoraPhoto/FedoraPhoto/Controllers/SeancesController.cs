@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FedoraPhoto.Models;
+using PagedList;
 
 namespace FedoraPhoto.Controllers
 {
@@ -15,10 +16,100 @@ namespace FedoraPhoto.Controllers
         private Model1 db = new Model1();
 
         // GET: Seances
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "seanceID" : "";
+
             var seances = db.Seances.Include(s => s.Agent).Include(s => s.Forfait).Include(s => s.Photos).Include(s => s.Photographe);
-            return View(seances.ToList());
+
+            switch (sortOrder)
+            {
+                case "seanceID":
+                    seances = seances.OrderByDescending(s => s.SeanceID);
+                    break;
+                case "date_desc":
+                    seances = seances.OrderByDescending(s => s.DateSeance);
+                    break;
+                case "statut":
+                    List<Seance> seancesTries = new List<Seance>();
+                    var lst_StatutSeance = new Dictionary<string, List<Seance>>();
+
+                    foreach (Seance seance in seances)
+                    {
+                        if(!lst_StatutSeance.ContainsKey(seance.Statut))
+                        {
+                            lst_StatutSeance[seance.Statut] = new List<Seance>();
+                        }
+                        lst_StatutSeance[seance.Statut].Add(seance);
+                    }
+
+                    //foreach (var dictionnaireItem in lst_StatutSeance)
+                    //{
+                    //    foreach (var seance in dictionnaireItem.Value)
+                    //    {
+                    //        seancesTries.Add(seance);
+                    //    }
+                    //}
+
+                    if(lst_StatutSeance.ContainsKey("demandée"))
+                    {
+                        foreach (var seance in lst_StatutSeance["demandée"])
+                        {
+                            seancesTries.Add(seance);
+                        }
+                    }
+
+                    if(lst_StatutSeance.ContainsKey("Confirmée"))
+                    {
+                        foreach (var seance in lst_StatutSeance["Confirmée"])
+                        {
+                            seancesTries.Add(seance);
+                        }
+                    }
+
+                    if(lst_StatutSeance.ContainsKey("Reportée"))
+                    {
+                        foreach (var seance in lst_StatutSeance["Reportée"])
+                        {
+                            seancesTries.Add(seance);
+                        }
+                    }
+
+                    if(lst_StatutSeance.ContainsKey("Réalisée"))
+                    {
+                        foreach (var seance in lst_StatutSeance["Réalisée"])
+                        {
+                            seancesTries.Add(seance);
+                        }
+                    }
+
+                    if(lst_StatutSeance.ContainsKey("Livrée"))
+                    {
+                        foreach (var seance in lst_StatutSeance["Livrée"])
+                        {
+                            seancesTries.Add(seance);
+                        }
+                    }
+
+                    if(lst_StatutSeance.ContainsKey("Facturée"))
+                    {
+                        foreach (var seance in lst_StatutSeance["Facturée"])
+                        {
+                            seancesTries.Add(seance);
+                        }
+                    }
+
+                    seances = seancesTries.AsQueryable();
+                    break;
+                default:
+                    seances = seances.OrderByDescending(s => s.SeanceID);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(seances.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Seances/Details/5
