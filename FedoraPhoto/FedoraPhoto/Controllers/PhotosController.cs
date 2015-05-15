@@ -143,6 +143,7 @@ namespace FedoraPhoto.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Photo photo = db.Photos.Find(id);
+            System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + photo.PhotoPath);
             db.Photos.Remove(photo);
             db.SaveChanges();
             return RedirectToAction("Index");
