@@ -51,7 +51,7 @@ namespace FedoraPhoto.Controllers
             }
 
             string pathDirectory = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + seance.SeanceID + "\\";
-            string pathFile = AppDomain.CurrentDomain.BaseDirectory + "Images\\Photos" + seance.SeanceID + ".zip";
+            string pathFile = AppDomain.CurrentDomain.BaseDirectory + "Temp\\" + DateTime.UtcNow.Ticks.ToString() + ".zip";
 
             using (ZipFile zfile = new ZipFile())
             {
