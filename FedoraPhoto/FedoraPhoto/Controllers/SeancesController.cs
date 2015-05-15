@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FedoraPhoto.Models;
+using Ionic.Zip;
+using System.IO;
 
 namespace FedoraPhoto.Controllers
 {
@@ -34,6 +36,32 @@ namespace FedoraPhoto.Controllers
                 return HttpNotFound();
             }
             return View(seance);
+        }
+
+        public ActionResult Download(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Seance seance = db.Seances.Find(id);
+            if (seance == null)
+            {
+                return HttpNotFound();
+            }
+
+            string pathDirectory = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + seance.SeanceID + "\\";
+            string pathFile = AppDomain.CurrentDomain.BaseDirectory + "Images\\Photos" + seance.SeanceID + ".zip";
+
+            using (ZipFile zfile = new ZipFile())
+            {
+                zfile.AddDirectory(pathDirectory);
+                zfile.Save(pathFile);
+            }
+
+            Downloader.Download("Photos" + seance.SeanceID + ".zip", pathFile);
+
+            return View("Details", seance);
         }
 
         // GET: Seances/Create
