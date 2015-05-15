@@ -101,7 +101,8 @@
 
 <p>
     @Html.ActionLink("Modifier", "Edit", new { id = Model.SeanceID }) |
-    @Html.ActionLink("Retour à la Liste", "Index")
+    @Html.ActionLink("Retour à la Liste", "Index") |
+	@Html.ActionLink("Download", "Download", new { id = Model.SeanceID })
 </p>
 
 
