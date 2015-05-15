@@ -13,8 +13,12 @@
             @Html.DisplayName("Date Seance")
         </th>
         <th>
+            @Html.DisplayName("Heure Séance")
+        </th>
+        <th>
             @Html.DisplayName("Adresse")
         </th>
+        <th></th>
     </tr>
 
     @foreach (var seance in Model.Seances)
@@ -24,7 +28,16 @@
                 @Html.DisplayFor(modelItem => seance.DateSeance)
             </td>
             <td>
+                @if(seance.DateSeance != null)
+                {
+                    @(Html.DisplayFor(modelItem => seance.HeureRDV) + "h" + @Html.DisplayFor(modelItem => seance.MinuteRDV))
+                }               
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => seance.Adresse)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Seances", new { id = seance.SeanceID }, null)              
             </td>
         </tr>
     }
