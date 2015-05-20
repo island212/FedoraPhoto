@@ -153,6 +153,7 @@
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Photographe.cs" />
+    <Compile Include="Models\PhotographeMetadata.cs" />
     <Compile Include="Models\PhotoMetadata.cs" />
     <Compile Include="Models\Seance.cs" />
     <Compile Include="Models\SeanceMetadata.cs" />

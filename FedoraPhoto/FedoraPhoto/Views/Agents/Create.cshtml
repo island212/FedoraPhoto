@@ -13,12 +13,11 @@
     
     <div class="form-horizontal">
         <h4>Agent</h4>
-        Les champs avec des <p style="color: red">*</p> sont obligatoires
+        Les champs avec des <span style="color: red">*</span> sont obligatoires
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Nom, htmlAttributes: new { @class = "control-label col-md-2" })
-<p style="color: red">*</p>
+        @Html.LabelFor(model => model.Nom, htmlAttributes: new { @class = "control-label col-md-2" }) <span style="color: red" >*</span>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
@@ -26,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Prenom, htmlAttributes: new { @class = "control-label col-md-2" }) <p style="color: red">*</p>
+            @Html.LabelFor(model => model.Prenom, htmlAttributes: new { @class = "control-label col-md-2" }) <span style="color: red">*</span>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Prenom, "", new { @class = "text-danger" })
@@ -34,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label col-md-2" }) <p style="color: red">*</p>
+            @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label col-md-2" }) <span style="color: red">*</span>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })

@@ -13,6 +13,7 @@
     
     <div class="form-horizontal">
         <h4>Photo</h4>
+        Les champs avec des <span style="color: red">*</span> sont obligatoires
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -24,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Photo", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Photo", htmlAttributes: new { @class = "control-label col-md-2" }) <span style="color: red">*</span>
             <div class="col-md-10">
                 <input type="file" name="imageFiles" multiple />
             </div>
