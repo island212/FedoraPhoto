@@ -146,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Agent.cs" />
+    <Compile Include="Models\AgentMetadata.cs" />
     <Compile Include="Models\Dowloader.cs" />
     <Compile Include="Models\Facture.cs" />
     <Compile Include="Models\Forfait.cs" />
