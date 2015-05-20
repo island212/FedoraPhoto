@@ -10,13 +10,17 @@ namespace FedoraPhoto.Models
     [MetadataType(typeof(AgentMetadata))]
     public partial class Agent
     {
-        [Display(Name = "Nom Agent")]
-        public string Nom { get; set; }
+        internal sealed class AgentMetadata
+        {
 
-        [Display(Name = "Prénom Agent")]
-        public string Prenom { get; set; }
+            [Display(Name = "Nom Agent")]
+            public string Nom { get; set; }
 
-        [Display(Name = "Téléphone Agent")]
-        public string Telephone { get; set; }
+            [Display(Name = "Prénom Agent")]
+            public string Prenom { get; set; }
+
+            [Display(Name = "Téléphone Agent")]
+            public string Telephone { get; set; }
+        }
     }
 }
