@@ -148,8 +148,3 @@ DECLARE @idSeance int = (SELECT TOP(1) SeanceID FROM inserted)
 UPDATE Seances.Seance SET Statut = 'Livrée' WHERE SeanceID = @idSeance
 
 GO
-
-
-
-
-
