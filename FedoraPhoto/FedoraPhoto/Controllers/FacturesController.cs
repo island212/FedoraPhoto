@@ -52,6 +52,7 @@ namespace FedoraPhoto.Controllers
         {
             if (ModelState.IsValid)
             {
+                facture.Seance.DateFacture = DateTime.Now;
                 db.Factures.Add(facture);
                 db.SaveChanges();
                 return RedirectToAction("Index");

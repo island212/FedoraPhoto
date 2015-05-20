@@ -12,6 +12,12 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Seance.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seance.Prenom)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Seance.Adresse)
         </th>
         <th>
@@ -35,22 +41,28 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Seance.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seance.Prenom)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Seance.Adresse)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FraisDeplacement)
+            @Html.DisplayFor(modelItem => item.FraisDeplacement) $
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FraisVisiteVirtuelle)
+            @Html.DisplayFor(modelItem => item.FraisVisiteVirtuelle) $
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FraisTVQ)
+            @Html.DisplayFor(modelItem => item.FraisTVQ) $
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FraisTPS)
+            @Html.DisplayFor(modelItem => item.FraisTPS) $
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Total)
+            @Html.DisplayFor(modelItem => item.Total) $
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.FactureID }) |

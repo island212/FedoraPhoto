@@ -65,11 +65,13 @@ namespace FedoraPhoto.Controllers
                     var repertoire = Directory.CreateDirectory(pathDirectory, securityRules);
                 }
 
+                DateTime currentTime = DateTime.Now;
                 foreach (var imageFile in imageFiles)
                 {
                     Photo imagePhoto = new Photo();
                     imagePhoto.SeanceID = photo.SeanceID;
                     imagePhoto.Seance = photo.Seance;
+                    photo.Seance.DateDispo = currentTime;
 
                     string pathFile = pathDirectory + imageFile.FileName;
                     imagePhoto.PhotoPath = "Images\\" + photo.SeanceID + "\\" + imageFile.FileName;
