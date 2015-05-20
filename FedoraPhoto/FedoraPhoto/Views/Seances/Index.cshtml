@@ -66,6 +66,18 @@
                 <tr bgcolor="#3d9aff">
                 </text>
             }
+            @if (item.Statut == "Livrée")
+            {
+                <text>
+                <tr bgcolor="#C2C06E">
+                </text>
+            }
+            @if (item.Statut == "Facturée")
+            {
+                <text>
+                <tr bgcolor="#C7C7C7">
+                </text>
+            }
 
             <td>
                 @Html.DisplayFor(modelItem => item.Agent.Nom)
@@ -100,4 +112,13 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page=page, sortOrder = ViewBag.CurrentSort }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort }))
+
+<div style="width:100%">
+    <div style="float:left;margin-right:5px"><div style="float:left;background-color:#ff893d;height:20px;width:20px"></div><p style="float:left;width:50%;margin-left:5px">Demandé</p></div>
+    <div style="float:left;margin-right:5px"><div style="float:left;background-color:#95FF95;height:20px;width:20px"></div><p style="float:left;width:50%;margin-left:5px">Confirmée</p></div>
+    <div style="float:left;margin-right:5px"><div style="float:left;background-color:#ff3d3d;height:20px;width:20px"></div><p style="float:left;width:50%;margin-left:5px">Reportée</p></div>
+    <div style="float:left;margin-right:5px"><div style="float:left;background-color:#3d9aff;height:20px;width:20px"></div><p style="float:left;width:50%;margin-left:5px">Réalisé</p></div>
+    <div style="float:left;margin-right:5px"><div style="float:left;background-color:#C2C06E;height:20px;width:20px"></div><p style="float:left;width:50%;margin-left:5px">Livrée</p></div>
+    <div style="float:left;margin-right:5px"><div style="float:left;background-color:#C7C7C7;height:20px;width:20px"></div><p style="float:left;width:50%;margin-left:5px">Facturé</p></div>
+</div>
