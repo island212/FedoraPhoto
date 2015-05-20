@@ -57,6 +57,9 @@ namespace FedoraPhoto.Models
             [StringLength(50)]
             [Required]
             public string Prenom { get; set; }
+
+            [Timestamp]
+            public byte[] rowVersionSeance { get; set; }
         }
     }
 }

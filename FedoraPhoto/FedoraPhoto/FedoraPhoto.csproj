@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
+    <Compile Include="Controllers\FacturesController.cs" />
     <Compile Include="Controllers\ForfaitsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotographesController.cs" />
@@ -224,6 +225,11 @@
     <Content Include="Views\Photos\Edit.cshtml" />
     <Content Include="Views\Photos\Index.cshtml" />
     <Content Include="Views\Shared\_GaleriePhotoView.cshtml" />
+    <Content Include="Views\Factures\Create.cshtml" />
+    <Content Include="Views\Factures\Delete.cshtml" />
+    <Content Include="Views\Factures\Details.cshtml" />
+    <Content Include="Views\Factures\Edit.cshtml" />
+    <Content Include="Views\Factures\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
