@@ -10,6 +10,7 @@ using FedoraPhoto.Models;
 using PagedList;
 using Ionic.Zip;
 using System.IO;
+using System.Data.Entity.Infrastructure;
 
 namespace FedoraPhoto.Controllers
 {
@@ -39,7 +40,7 @@ namespace FedoraPhoto.Controllers
 
                     foreach (Seance seance in seances)
                     {
-                        if(!lst_StatutSeance.ContainsKey(seance.Statut))
+                        if (!lst_StatutSeance.ContainsKey(seance.Statut))
                         {
                             lst_StatutSeance[seance.Statut] = new List<Seance>();
                         }
@@ -54,7 +55,7 @@ namespace FedoraPhoto.Controllers
                     //    }
                     //}
 
-                    if(lst_StatutSeance.ContainsKey("demandée"))
+                    if (lst_StatutSeance.ContainsKey("demandée"))
                     {
                         foreach (var seance in lst_StatutSeance["demandée"])
                         {
@@ -62,7 +63,7 @@ namespace FedoraPhoto.Controllers
                         }
                     }
 
-                    if(lst_StatutSeance.ContainsKey("Confirmée"))
+                    if (lst_StatutSeance.ContainsKey("Confirmée"))
                     {
                         foreach (var seance in lst_StatutSeance["Confirmée"])
                         {
@@ -70,7 +71,7 @@ namespace FedoraPhoto.Controllers
                         }
                     }
 
-                    if(lst_StatutSeance.ContainsKey("Reportée"))
+                    if (lst_StatutSeance.ContainsKey("Reportée"))
                     {
                         foreach (var seance in lst_StatutSeance["Reportée"])
                         {
@@ -78,7 +79,7 @@ namespace FedoraPhoto.Controllers
                         }
                     }
 
-                    if(lst_StatutSeance.ContainsKey("Réalisée"))
+                    if (lst_StatutSeance.ContainsKey("Réalisée"))
                     {
                         foreach (var seance in lst_StatutSeance["Réalisée"])
                         {
@@ -86,7 +87,7 @@ namespace FedoraPhoto.Controllers
                         }
                     }
 
-                    if(lst_StatutSeance.ContainsKey("Livrée"))
+                    if (lst_StatutSeance.ContainsKey("Livrée"))
                     {
                         foreach (var seance in lst_StatutSeance["Livrée"])
                         {
@@ -94,7 +95,7 @@ namespace FedoraPhoto.Controllers
                         }
                     }
 
-                    if(lst_StatutSeance.ContainsKey("Facturée"))
+                    if (lst_StatutSeance.ContainsKey("Facturée"))
                     {
                         foreach (var seance in lst_StatutSeance["Facturée"])
                         {
@@ -211,14 +212,21 @@ namespace FedoraPhoto.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,Adresse,Telephone1,Telephone2,Telephone3,DateSeance,HeureRDV,MinuteRDV,Nom,Prenom,ForfaitID,Statut,DateDispo,DateFacture")] Seance seance)
+        public ActionResult Edit([Bind(Include = "SeanceID,AgentID,PhotographeID,Adresse,Telephone1,Telephone2,Telephone3,DateSeance,HeureRDV,MinuteRDV,Nom,Prenom,ForfaitID,Statut,DateDispo,DateFacture,rowVersionSeance")] Seance seance)
         {
-            if (ModelState.IsValid)
+            try
             {
-                seance.Statut = "demandée";
-                db.Entry(seance).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    seance.Statut = "demandée";
+                    db.Entry(seance).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                RecupererErreurUpdate(ex);
             }
             ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
             ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
@@ -260,6 +268,40 @@ namespace FedoraPhoto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        private void RecupererErreurUpdate(DbUpdateConcurrencyException ex)
+        {
+            ModelState.AddModelError("", "Il y a deja eu une modification sur cette séance pendant que vous le le changiez, les valeurs modifiés sont à coté les champs.");
+            var entry = ex.Entries.Single();
+            var clientValues = (Seance)entry.Entity;
+            var databaseValues = (Seance)entry.GetDatabaseValues().ToObject();
+            if (databaseValues == null)
+            {
+                ModelState.AddModelError(string.Empty, "On ne peut pas effectuer les changements sur la séance car un utilisateur a supprimé cette séance.");
+            }
+            else
+            {
+
+                if (databaseValues.Adresse != clientValues.Adresse)
+                    ModelState.AddModelError("Adresse", "Valeur courante: " + databaseValues.Adresse);
+                if (databaseValues.Agent != clientValues.Agent)
+                    ModelState.AddModelError("Agent", "Valeur courante: " + databaseValues.Agent);
+                if (databaseValues.DateDispo != clientValues.DateDispo)
+                {
+                    ModelState.AddModelError("DateDispo", "Valeur courante: " + databaseValues.DateDispo);
+
+                }
+
+                if (databaseValues.Nom != clientValues.Nom)
+                    ModelState.AddModelError("Nom", "Valeur courante: " + databaseValues.Nom);
+                if (databaseValues.Prenom != clientValues.Prenom)
+                    ModelState.AddModelError("Prenom", "Valeur courante: " + databaseValues.Prenom);
+                if (databaseValues.Telephone1 != clientValues.Telephone1)
+                    ModelState.AddModelError("Prenom", "Valeur courante: " + databaseValues.Telephone1);
+
+            }
         }
     }
 }

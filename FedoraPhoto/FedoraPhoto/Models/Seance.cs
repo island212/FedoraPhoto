@@ -12,6 +12,7 @@ namespace FedoraPhoto.Models
         public Seance()
         {
             Photos = new HashSet<Photo>();
+            Factures = new HashSet<Facture>();
         }
 
         public int SeanceID { get; set; }
@@ -47,6 +48,7 @@ namespace FedoraPhoto.Models
         public DateTime? DateFacture { get; set; }
 
         [Column(TypeName = "timestamp")]
+        [Timestamp]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [MaxLength(8)]
         public byte[] rowVersionSeance { get; set; }
@@ -58,5 +60,7 @@ namespace FedoraPhoto.Models
         public virtual Forfait Forfait { get; set; }
 
         public virtual ICollection<Photo> Photos { get; set; }
+
+        public virtual ICollection<Facture> Factures { get; set; }
     }
 }

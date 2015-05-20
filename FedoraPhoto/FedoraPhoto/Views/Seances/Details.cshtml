@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Details";
-    var photos = new List<FedoraPhoto.Models.Photo>(Model.Photos);
 }
 
 <style>
@@ -84,20 +83,7 @@
     </dl>
 </div>
 
-<table class="table" width="100%">
-    <tr>
-        <th colspan="3">Photos</th>
-    </tr>
-    @for (int row = 0; row <= photos.Count / 3; row++)
-    {
-        <tr>
-            @for (int column = 0; column < 3 && row * 3 + column < photos.Count; column++)
-			{
-                <td><img src=@("..\\..\\" + photos[row * 3 + column].PhotoPath) alt="@photos[row * 3 + column].PhotoName" /></td>
-			}
-        </tr>
-    }
-</table>
+@Html.Partial("_GaleriePhotoView", Model);
 
 <p>
     @Html.ActionLink("Modifier", "Edit", new { id = Model.SeanceID }) |

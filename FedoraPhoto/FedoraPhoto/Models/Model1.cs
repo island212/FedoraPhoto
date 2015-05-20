@@ -8,7 +8,7 @@ namespace FedoraPhoto.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model1")
+            : base("name=Model11")
         {
         }
 
@@ -18,6 +18,7 @@ namespace FedoraPhoto.Models
         public virtual DbSet<Forfait> Forfaits { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<Seance> Seances { get; set; }
+        public virtual DbSet<Facture> Factures { get; set; }
         public virtual DbSet<uvwInfoSeance> uvwInfoSeances { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -98,6 +99,11 @@ namespace FedoraPhoto.Models
 
             modelBuilder.Entity<Seance>()
                 .HasMany(e => e.Photos)
+                .WithRequired(e => e.Seance)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Seance>()
+                .HasMany(e => e.Factures)
                 .WithRequired(e => e.Seance)
                 .WillCascadeOnDelete(false);
 
