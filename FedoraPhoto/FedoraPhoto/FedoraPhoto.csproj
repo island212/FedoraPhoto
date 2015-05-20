@@ -135,6 +135,9 @@
     <Compile Include="Controllers\PhotographesController.cs" />
     <Compile Include="Controllers\PhotosController.cs" />
     <Compile Include="Controllers\SeancesController.cs" />
+    <Compile Include="DAL\AgentRepository.cs" />
+    <Compile Include="DAL\FactureRepository.cs" />
+    <Compile Include="DAL\ForfaitRepository.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\IGenericRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />

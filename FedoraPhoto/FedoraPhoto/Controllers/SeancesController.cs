@@ -11,12 +11,14 @@ using PagedList;
 using Ionic.Zip;
 using System.IO;
 using System.Data.Entity.Infrastructure;
+using FedoraPhoto.DAL;
 
 namespace FedoraPhoto.Controllers
 {
     public class SeancesController : Controller
     {
-        private Model1 db = new Model1();
+       // private Model1 db = new Model1();
+        UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Seances
         public ActionResult Index(string sortOrder, int? page)
@@ -24,7 +26,8 @@ namespace FedoraPhoto.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "seanceID" : "";
 
-            var seances = db.Seances.Include(s => s.Agent).Include(s => s.Forfait).Include(s => s.Photos).Include(s => s.Photographe);
+           // var seances = db.Seances.Include(s => s.Agent).Include(s => s.Forfait).Include(s => s.Photos).Include(s => s.Photographe);
+            var seances = unitOfWork.SeanceRepository.Get(includeProperties: "Forfait,Photos,Photographe");
 
             switch (sortOrder)
             {
@@ -35,75 +38,7 @@ namespace FedoraPhoto.Controllers
                     seances = seances.OrderByDescending(s => s.DateSeance);
                     break;
                 case "statut":
-                    List<Seance> seancesTries = new List<Seance>();
-                    var lst_StatutSeance = new Dictionary<string, List<Seance>>();
-
-                    foreach (Seance seance in seances)
-                    {
-                        if (!lst_StatutSeance.ContainsKey(seance.Statut))
-                        {
-                            lst_StatutSeance[seance.Statut] = new List<Seance>();
-                        }
-                        lst_StatutSeance[seance.Statut].Add(seance);
-                    }
-
-                    //foreach (var dictionnaireItem in lst_StatutSeance)
-                    //{
-                    //    foreach (var seance in dictionnaireItem.Value)
-                    //    {
-                    //        seancesTries.Add(seance);
-                    //    }
-                    //}
-
-                    if (lst_StatutSeance.ContainsKey("demandée"))
-                    {
-                        foreach (var seance in lst_StatutSeance["demandée"])
-                        {
-                            seancesTries.Add(seance);
-                        }
-                    }
-
-                    if (lst_StatutSeance.ContainsKey("Confirmée"))
-                    {
-                        foreach (var seance in lst_StatutSeance["Confirmée"])
-                        {
-                            seancesTries.Add(seance);
-                        }
-                    }
-
-                    if (lst_StatutSeance.ContainsKey("Reportée"))
-                    {
-                        foreach (var seance in lst_StatutSeance["Reportée"])
-                        {
-                            seancesTries.Add(seance);
-                        }
-                    }
-
-                    if (lst_StatutSeance.ContainsKey("Réalisée"))
-                    {
-                        foreach (var seance in lst_StatutSeance["Réalisée"])
-                        {
-                            seancesTries.Add(seance);
-                        }
-                    }
-
-                    if (lst_StatutSeance.ContainsKey("Livrée"))
-                    {
-                        foreach (var seance in lst_StatutSeance["Livrée"])
-                        {
-                            seancesTries.Add(seance);
-                        }
-                    }
-
-                    if (lst_StatutSeance.ContainsKey("Facturée"))
-                    {
-                        foreach (var seance in lst_StatutSeance["Facturée"])
-                        {
-                            seancesTries.Add(seance);
-                        }
-                    }
-
-                    seances = seancesTries.AsQueryable();
+                    seances = unitOfWork.SeanceRepository.ObtenirSeancesTriesParStatut();
                     break;
                 default:
                     seances = seances.OrderByDescending(s => s.SeanceID);
@@ -122,7 +57,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seance seance = db.Seances.Find(id);
+           // Seance seance = db.Seances.Find(id);
+            Seance seance = unitOfWork.SeanceRepository.GetByID(id);
             if (seance == null)
             {
                 return HttpNotFound();
@@ -136,7 +72,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seance seance = db.Seances.Find(id);
+            //Seance seance = db.Seances.Find(id);
+            Seance seance = unitOfWork.SeanceRepository.GetByID(id);
             if (seance == null)
             {
                 return HttpNotFound();
@@ -159,10 +96,14 @@ namespace FedoraPhoto.Controllers
         // GET: Seances/Create
         public ActionResult Create()
         {
-            ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom");
-            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait");
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName");
-            ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom");
+          //  ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom");
+          //  ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait");
+          //  ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName");
+          //  ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom");
+            ViewBag.AgentID = new SelectList(unitOfWork.AgentRepository.ObtenirAgents(), "AgentID", "Nom");
+            ViewBag.ForfaitID = new SelectList(unitOfWork.ForfaitRepository.ObtenirForfaits(), "ForfaitID", "NomForfait");
+            ViewBag.SeanceID = new SelectList(unitOfWork.PhotoRepository.Get(), "PhotoID", "PhotoName");
+            ViewBag.PhotographeID = new SelectList(unitOfWork.PhotographeRepository.ObtenirPhotographes(), "PhotographeID", "Nom");
             return View();
         }
 
@@ -176,15 +117,21 @@ namespace FedoraPhoto.Controllers
             if (ModelState.IsValid)
             {
                 seance.Statut = "demandée";
-                db.Seances.Add(seance);
-                db.SaveChanges();
+                //db.Seances.Add(seance);
+                //db.SaveChanges();
+                unitOfWork.SeanceRepository.InsererSeance(seance);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
-            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
-            ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
+            //ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
+            //ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
+            //ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
+            //ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
+            ViewBag.AgentID = new SelectList(unitOfWork.AgentRepository.ObtenirAgents(), "AgentID", "Nom", seance.AgentID);
+            ViewBag.ForfaitID = new SelectList(unitOfWork.ForfaitRepository.ObtenirForfaits(), "ForfaitID", "NomForfait", seance.ForfaitID);
+            ViewBag.SeanceID = new SelectList(unitOfWork.PhotoRepository.Get(), "PhotoID", "PhotoName", seance.SeanceID);
+            ViewBag.PhotographeID = new SelectList(unitOfWork.PhotographeRepository.ObtenirPhotographes(), "PhotographeID", "Nom", seance.PhotographeID);
             return View(seance);
         }
 
@@ -195,15 +142,22 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seance seance = db.Seances.Find(id);
+            //Seance seance = db.Seances.Find(id);
+            Seance seance = unitOfWork.SeanceRepository.ObtenirSeanceParID(id);
             if (seance == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
-            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
-            ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
+            //ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
+            //ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
+            //ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
+            //ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
+
+            ViewBag.AgentID = new SelectList(unitOfWork.AgentRepository.ObtenirAgents(), "AgentID", "Nom", seance.AgentID);
+            ViewBag.ForfaitID = new SelectList(unitOfWork.ForfaitRepository.ObtenirForfaits(), "ForfaitID", "NomForfait", seance.ForfaitID);
+            ViewBag.SeanceID = new SelectList(unitOfWork.PhotoRepository.Get(), "PhotoID", "PhotoName", seance.SeanceID);
+            ViewBag.PhotographeID = new SelectList(unitOfWork.PhotographeRepository.ObtenirPhotographes(), "PhotographeID", "Nom", seance.PhotographeID);
+
             return View(seance);
         }
 
@@ -219,8 +173,10 @@ namespace FedoraPhoto.Controllers
                 if (ModelState.IsValid)
                 {
                     seance.Statut = "demandée";
-                    db.Entry(seance).State = EntityState.Modified;
-                    db.SaveChanges();
+                  //  db.Entry(seance).State = EntityState.Modified;
+                  //  db.SaveChanges();
+                    unitOfWork.SeanceRepository.InsererSeance(seance);
+                    unitOfWork.Save();
                     return RedirectToAction("Index");
                 }
             }
@@ -228,10 +184,16 @@ namespace FedoraPhoto.Controllers
             {
                 RecupererErreurUpdate(ex);
             }
-            ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
-            ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
-            ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
-            ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
+            //ViewBag.AgentID = new SelectList(db.Agents, "AgentID", "Nom", seance.AgentID);
+            //ViewBag.ForfaitID = new SelectList(db.Forfaits, "ForfaitID", "NomForfait", seance.ForfaitID);
+            //ViewBag.SeanceID = new SelectList(db.Photos, "PhotoID", "PhotoName", seance.SeanceID);
+            //ViewBag.PhotographeID = new SelectList(db.Photographes, "PhotographeID", "Nom", seance.PhotographeID);
+
+            ViewBag.AgentID = new SelectList(unitOfWork.AgentRepository.ObtenirAgents(), "AgentID", "Nom", seance.AgentID);
+            ViewBag.ForfaitID = new SelectList(unitOfWork.ForfaitRepository.ObtenirForfaits(), "ForfaitID", "NomForfait", seance.ForfaitID);
+            ViewBag.SeanceID = new SelectList(unitOfWork.PhotoRepository.Get(), "PhotoID", "PhotoName", seance.SeanceID);
+            ViewBag.PhotographeID = new SelectList(unitOfWork.PhotographeRepository.ObtenirPhotographes(), "PhotographeID", "Nom", seance.PhotographeID);
+
             return View(seance);
         }
 
@@ -242,7 +204,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Seance seance = db.Seances.Find(id);
+           // Seance seance = db.Seances.Find(id);
+            Seance seance = unitOfWork.SeanceRepository.ObtenirSeanceParID(id);
             if (seance == null)
             {
                 return HttpNotFound();
@@ -255,9 +218,12 @@ namespace FedoraPhoto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Seance seance = db.Seances.Find(id);
-            db.Seances.Remove(seance);
-            db.SaveChanges();
+            //Seance seance = db.Seances.Find(id);
+            //db.Seances.Remove(seance);
+            //db.SaveChanges();
+            Seance seance = unitOfWork.SeanceRepository.ObtenirSeanceParID(id);
+            unitOfWork.SeanceRepository.Delete(seance);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -265,7 +231,8 @@ namespace FedoraPhoto.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

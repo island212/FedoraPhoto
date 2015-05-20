@@ -7,17 +7,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FedoraPhoto.Models;
+using FedoraPhoto.DAL;
 
 namespace FedoraPhoto.Controllers
 {
     public class ForfaitsController : Controller
     {
-        private Model1 db = new Model1();
+      //  private Model1 db = new Model1();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Forfaits
         public ActionResult Index()
         {
-            return View(db.Forfaits.ToList());
+            //return View(db.Forfaits.ToList());
+            return View(unitOfWork.ForfaitRepository.ObtenirForfaits());
         }
 
         // GET: Forfaits/Details/5
@@ -27,7 +30,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Forfait forfait = db.Forfaits.Find(id);
+          //  Forfait forfait = db.Forfaits.Find(id);
+            Forfait forfait = unitOfWork.ForfaitRepository.ObtenirForfaitParID(id);
             if (forfait == null)
             {
                 return HttpNotFound();
@@ -50,8 +54,10 @@ namespace FedoraPhoto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Forfaits.Add(forfait);
-                db.SaveChanges();
+               // db.Forfaits.Add(forfait);
+               // db.SaveChanges();
+                unitOfWork.ForfaitRepository.InsererForfait(forfait);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +71,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Forfait forfait = db.Forfaits.Find(id);
+            //Forfait forfait = db.Forfaits.Find(id);
+            Forfait forfait = unitOfWork.ForfaitRepository.ObtenirForfaitParID(id);
             if (forfait == null)
             {
                 return HttpNotFound();
@@ -82,8 +89,10 @@ namespace FedoraPhoto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(forfait).State = EntityState.Modified;
-                db.SaveChanges();
+                // db.Entry(forfait).State = EntityState.Modified;
+                // db.SaveChanges();
+                unitOfWork.ForfaitRepository.InsererForfait(forfait);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(forfait);
@@ -96,7 +105,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Forfait forfait = db.Forfaits.Find(id);
+           // Forfait forfait = db.Forfaits.Find(id);
+            Forfait forfait = unitOfWork.ForfaitRepository.ObtenirForfaitParID(id);
             if (forfait == null)
             {
                 return HttpNotFound();
@@ -109,9 +119,14 @@ namespace FedoraPhoto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Forfait forfait = db.Forfaits.Find(id);
-            db.Forfaits.Remove(forfait);
-            db.SaveChanges();
+           // Forfait forfait = db.Forfaits.Find(id);
+           // db.Forfaits.Remove(forfait);
+           // db.SaveChanges();
+
+            Forfait forfait = unitOfWork.ForfaitRepository.ObtenirForfaitParID(id);
+            unitOfWork.ForfaitRepository.Delete(forfait);
+            unitOfWork.Save();
+
             return RedirectToAction("Index");
         }
 
@@ -119,7 +134,8 @@ namespace FedoraPhoto.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

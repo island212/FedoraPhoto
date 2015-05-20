@@ -13,12 +13,14 @@ namespace FedoraPhoto.Controllers
 {
     public class PhotographesController : Controller
     {
-        private Model1 db = new Model1();
+       // private Model1 db = new Model1();
+        UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Photographes
         public ActionResult Index()
         {
-            return View(db.Photographes.ToList());
+           // return View(db.Photographes.ToList());
+            return View(unitOfWork.PhotographeRepository.Get());
         }
 
         // GET: Photographes/Details/5
@@ -28,7 +30,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photographe photographe = db.Photographes.Find(id);
+            //Photographe photographe = db.Photographes.Find(id);
+            Photographe photographe = unitOfWork.PhotographeRepository.GetByID(id);
             if (photographe == null)
             {
                 return HttpNotFound();
@@ -51,8 +54,10 @@ namespace FedoraPhoto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Photographes.Add(photographe);
-                db.SaveChanges();
+                //db.Photographes.Add(photographe);
+               // db.SaveChanges();
+                unitOfWork.PhotographeRepository.Insert(photographe);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +71,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photographe photographe = db.Photographes.Find(id);
+            //Photographe photographe = db.Photographes.Find(id);
+            Photographe photographe = unitOfWork.PhotographeRepository.GetByID(id);
             if (photographe == null)
             {
                 return HttpNotFound();
@@ -83,8 +89,10 @@ namespace FedoraPhoto.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(photographe).State = EntityState.Modified;
-                db.SaveChanges();
+              //  db.Entry(photographe).State = EntityState.Modified;
+               // db.SaveChanges();
+                unitOfWork.PhotographeRepository.Update(photographe);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(photographe);
@@ -97,7 +105,8 @@ namespace FedoraPhoto.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Photographe photographe = db.Photographes.Find(id);
+           // Photographe photographe = db.Photographes.Find(id);
+            Photographe photographe = unitOfWork.PhotographeRepository.GetByID(id);
             if (photographe == null)
             {
                 return HttpNotFound();
@@ -110,9 +119,12 @@ namespace FedoraPhoto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Photographe photographe = db.Photographes.Find(id);
-            db.Photographes.Remove(photographe);
-            db.SaveChanges();
+           // Photographe photographe = db.Photographes.Find(id);
+           // db.Photographes.Remove(photographe);
+           // db.SaveChanges();
+            Photographe photographe = unitOfWork.PhotographeRepository.GetByID(id);
+            unitOfWork.PhotographeRepository.Delete(photographe);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +132,8 @@ namespace FedoraPhoto.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+               // db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
