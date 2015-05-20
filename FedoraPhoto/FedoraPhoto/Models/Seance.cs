@@ -46,6 +46,11 @@ namespace FedoraPhoto.Models
 
         public DateTime? DateFacture { get; set; }
 
+        [Column(TypeName = "timestamp")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [MaxLength(8)]
+        public byte[] rowVersionSeance { get; set; }
+
         public virtual Agent Agent { get; set; }
 
         public virtual Photographe Photographe { get; set; }
