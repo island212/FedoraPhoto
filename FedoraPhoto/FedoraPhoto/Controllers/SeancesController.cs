@@ -82,13 +82,16 @@ namespace FedoraPhoto.Controllers
             string pathDirectory = AppDomain.CurrentDomain.BaseDirectory + "Images\\" + seance.SeanceID + "\\";
             string pathFile = AppDomain.CurrentDomain.BaseDirectory + "Temp\\" + DateTime.UtcNow.Ticks.ToString() + ".zip";
 
-            using (ZipFile zfile = new ZipFile())
+            if (Directory.Exists(pathDirectory))
             {
-                zfile.AddDirectory(pathDirectory);
-                zfile.Save(pathFile);
-            }
+                using (ZipFile zfile = new ZipFile())
+                {
+                    zfile.AddDirectory(pathDirectory);
+                    zfile.Save(pathFile);
+                }
 
-            Downloader.Download("Photos" + seance.SeanceID + ".zip", pathFile);
+                Downloader.Download("Photos" + seance.SeanceID + ".zip", pathFile);
+            }
 
             return View("Details", seance);
         }
